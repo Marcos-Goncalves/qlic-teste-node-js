@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:latest
+    container_name: mysql_qlic
+    environment:
+      MYSQL_ROOT_PASSWORD: root            # Defina uma senha para o root
+      MYSQL_DATABASE: qlic             # Nome do banco de dados inicial
+    ports:
+      - "3306:3306"  # Expõe a porta do MySQL
+    volumes:
+      - mysql_data:/var/lib/mysql  # Persistência dos dados
+
+  phpmyadmin:
+    image: adminer:latest
+    container_name: adminer_qlic
+    environment:
+      ADMINER_DEFAULT_SERVER: db      # Conecta com o serviço do MySQL
+    ports:
+      - "8080:8080" 
+
+volumes:
+  mysql_data:
+    driver: local
