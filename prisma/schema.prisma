@@ -14,7 +14,7 @@ datasource db {
 }
 
 model Task {
-  id            String   @id @default(cuid())
+  id            Int   @id @default(autoincrement())
   title         String
   status        String   @default("pendente")
   description   String

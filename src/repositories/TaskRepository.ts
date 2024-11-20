@@ -16,6 +16,18 @@ class TaskRepository {
             }
         });
     }
+
+    async findAll() {
+        return await prisma.task.findMany();
+    }
+
+    async findByStatus(status: string) {
+        return await prisma.task.findMany({
+            where: {
+                status
+            }
+        });
+    }
 }
 
 export default new TaskRepository();

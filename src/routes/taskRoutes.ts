@@ -4,7 +4,8 @@ import { z } from "zod";
 
 async function taskRoutes(fastify: FastifyInstance) {
     fastify.get('/tasks', async (request, reply) => {
-        return { tasks: [] };
+        const allTasks = await TaskController.findAll(request.query);
+        return reply.code(200).send(allTasks);
     });
 
     fastify.post('/tasks', async (request, reply) => {
