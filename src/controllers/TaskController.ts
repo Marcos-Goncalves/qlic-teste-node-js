@@ -23,14 +23,10 @@ class TaskController {
             });
         } catch (error) {
             if (error instanceof z.ZodError) {
-                return reply.code(400).send({
-                    message: error.errors[0].message
-                });
+                throw new AppError(error.errors[0].message, 400);
             }
 
-            return reply.code(500).send({
-                message: 'Erro interno no servidor'
-            });
+            throw error;
         }
     }
 
