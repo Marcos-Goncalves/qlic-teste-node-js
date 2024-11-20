@@ -4,6 +4,7 @@ import FindAllTasksService from "../services/FindAllTasksService";
 import UpdateTaskService from "../services/UpdateTaskService";
 import { z } from "zod";
 import axios from "axios";
+import { AppError } from "../errors/AppError";
 
 class TaskController {
 
@@ -43,15 +44,7 @@ class TaskController {
             const tasks = await FindAllTasksService.findAll(status);
             return reply.code(200).send(tasks);
         } catch (error) {
-            if (error instanceof z.ZodError) {
-                return reply.code(400).send({
-                    message: error.errors[0].message
-                });
-            }
-
-            return reply.code(500).send({
-                message: 'Erro interno no servidor'
-            });
+            throw error;
         }
     }
 
@@ -70,28 +63,13 @@ class TaskController {
         try {
             const { id } = paramsSchema.parse(requestParams);
             const { title, description, status } = updateTaskSchema.parse(requestBody);
-            const validateTask = await UpdateTaskService.validateTask(id);
-
-            if (!validateTask) {
-                return reply.code(404).send({
-                    message: 'Tarefa não encontrada!'
-                })
-            }
 
             await UpdateTaskService.updateTask(id, { title, description, status });
             return reply.code(200).send({
                 message: 'Tarefa atualizada com sucesso!'
             });
         } catch (error) {
-            if (error instanceof z.ZodError) {
-                return reply.code(400).send({
-                    message: error.errors[0].message
-                });
-            }
-
-            return reply.code(500).send({
-                message: 'Erro interno no servidor'
-            });
+            throw error;
         }
     }
 
@@ -117,15 +95,20 @@ class TaskController {
             const users = await axios.get(`${API_BASE_URL}/${id}`);
             return users.data;
         } catch (error) {
+            //Erro for do zod
             if (error instanceof z.ZodError) {
-                return fastify.code(400).send({
-                    message: error.errors[0].message
-                });
+                throw new AppError(error.errors[0].message, 400);
             }
 
-            return fastify.code(400).send({
-                message: 'Erro ao buscar usuários'
-            });
+            //Erro for do axios
+            if (axios.isAxiosError(error)) {
+                const status = error.response?.status || 500;
+                const message = error.response?.data?.message || 'Erro ao buscar dados da API';
+                throw new AppError(message, status);
+            }
+
+            //Outros erros
+            throw error;
         }
     }
 }
