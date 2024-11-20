@@ -3,7 +3,7 @@ import CreateTaskService from "../services/CreateTaskService";
 import FindAllTasksService from "../services/FindAllTasksService";
 import UpdateTaskService from "../services/UpdateTaskService";
 import { z } from "zod";
-import { request } from "express";
+import axios from "axios";
 
 class TaskController {
 
@@ -91,6 +91,29 @@ class TaskController {
 
             return reply.code(500).send({
                 message: 'Erro interno no servidor'
+            });
+        }
+    }
+
+    async findUsers(requestParams: FastifyRequest['params'], fastify: FastifyReply) {
+        const usersSchema = z.object({
+            id: z.string().transform(value => parseInt(value)).optional()
+        });
+
+        try {
+            const { id } = usersSchema.parse(requestParams);
+            const API_BASE_URL = 'https://jsonplaceholder.typicode.com/users';
+
+            if (!id) {
+                const users = await axios.get(API_BASE_URL);
+                return users.data;
+            }
+
+            const users = await axios.get(`${API_BASE_URL}/${id}`);
+            return users.data;
+        } catch (error) {
+            return fastify.code(404).send({
+                message: 'Erro ao buscar usuários'
             });
         }
     }

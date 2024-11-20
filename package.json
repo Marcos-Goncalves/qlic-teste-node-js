@@ -13,6 +13,7 @@
   "description": "",
   "dependencies": {
     "@prisma/client": "^5.22.0",
+    "axios": "^1.7.7",
     "express": "^4.21.1",
     "fastify": "^5.1.0",
     "zod": "^3.23.8"

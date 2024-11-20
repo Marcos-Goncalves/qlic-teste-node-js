@@ -16,6 +16,11 @@ async function taskRoutes(fastify: FastifyInstance) {
         const updatedTask = await TaskController.updateTask(request.params, request.body, reply);
         return reply.send(updatedTask);
     });
+
+    fastify.get('/tasks/users/:id?', async (request, reply) => {
+        const taskUsers = await TaskController.findUsers(request.params, reply);
+        return reply.send(taskUsers);
+    });
 }
 
 export default taskRoutes;
