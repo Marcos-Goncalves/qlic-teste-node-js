@@ -12,7 +12,10 @@ async function taskRoutes(fastify: FastifyInstance) {
         return reply.send(newTask);
     });
 
-    // Adicione outras rotas conforme necessário
+    fastify.put('/tasks/:id', async (request, reply) => {
+        const updatedTask = await TaskController.updateTask(request.params, request.body, reply);
+        return reply.send(updatedTask);
+    });
 }
 
 export default taskRoutes;

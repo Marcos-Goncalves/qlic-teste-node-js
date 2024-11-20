@@ -1,7 +1,9 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import CreateTaskService from "../services/CreateTaskService";
 import FindAllTasksService from "../services/FindAllTasksService";
+import UpdateTaskService from "../services/UpdateTaskService";
 import { z } from "zod";
+import { request } from "express";
 
 class TaskController {
 
@@ -40,6 +42,38 @@ class TaskController {
             const { status } = findAllTasksSchema.parse(requestQuery);
             const tasks = await FindAllTasksService.findAll(status);
             return reply.code(200).send(tasks);
+        } catch (error) {
+            if (error instanceof z.ZodError) {
+                return reply.code(400).send({
+                    message: error.errors[0].message
+                });
+            }
+
+            return reply.code(500).send({
+                message: 'Erro interno no servidor'
+            });
+        }
+    }
+
+    async updateTask(requestParams: FastifyRequest['params'], requestBody: FastifyRequest['body'], reply: FastifyReply) {
+
+        const updateTaskSchema = z.object({
+            title: z.string(),
+            description: z.string(),
+            status: z.string()
+        });
+
+        const paramsSchema = z.object({
+            id: z.string().transform(value => parseInt(value))
+        });
+
+        try {
+            const { id } = paramsSchema.parse(requestParams);
+            const { title, description, status } = updateTaskSchema.parse(requestBody);
+            const updatedTask = await UpdateTaskService.updateTask(id, { title, description, status });
+            return reply.code(200).send({
+                message: 'Tarefa atualizada com sucesso!'
+            });
         } catch (error) {
             if (error instanceof z.ZodError) {
                 return reply.code(400).send({

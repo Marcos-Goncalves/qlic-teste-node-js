@@ -1,5 +1,5 @@
 import fastify from "fastify";
-import taskRoutes from "./routes/taskRoutes";
+import taskRoutes from "./routes/TaskRoutes";
 
 const app = fastify();
 const PORT = process.env.PORT || 3333;

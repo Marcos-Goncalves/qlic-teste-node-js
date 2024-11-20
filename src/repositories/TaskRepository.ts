@@ -28,6 +28,19 @@ class TaskRepository {
             }
         });
     }
+
+    async update(id: number, task: Task) {
+        return await prisma.task.update({
+            where: {
+                id
+            },
+            data: {
+                title: task.title,
+                description: task.description,
+                status: task.status
+            }
+        });
+    }
 }
 
 export default new TaskRepository();
