@@ -41,6 +41,16 @@ class TaskRepository {
             }
         });
     }
+
+    async exists(id: number): Promise<boolean> {
+        const count = await prisma.task.count({
+            where: {
+                id
+            }
+        });
+
+        return count > 0
+    }
 }
 
 export default new TaskRepository();

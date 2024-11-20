@@ -7,7 +7,13 @@ interface updateTask {
 }
 
 class UpdateTaskService {
+
     async updateTask(id: number, task: updateTask) {
+        const taskExists = await TaskRepository.exists(id);
+        if (!taskExists) {
+            return taskExists;
+        }
+
         return await TaskRepository.update(id, task);
     };
 }

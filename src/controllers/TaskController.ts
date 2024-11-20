@@ -71,6 +71,13 @@ class TaskController {
             const { id } = paramsSchema.parse(requestParams);
             const { title, description, status } = updateTaskSchema.parse(requestBody);
             const updatedTask = await UpdateTaskService.updateTask(id, { title, description, status });
+
+            if (!updatedTask) {
+                return reply.code(404).send({
+                    message: 'Tarefa não encontrada!'
+                })
+            }
+
             return reply.code(200).send({
                 message: 'Tarefa atualizada com sucesso!'
             });
