@@ -1,6 +1,6 @@
 import TaskRepository from "../repositories/TaskRepository";
 
-interface updateTask {
+interface UpdateTask {
     title: string;
     description: string;
     status: string;
@@ -8,7 +8,7 @@ interface updateTask {
 
 class UpdateTaskService {
 
-    async updateTask(id: number, task: updateTask) {
+    async updateTask(id: number, task: UpdateTask) {
         const taskExists = await TaskRepository.exists(id);
         if (!taskExists) {
             return taskExists;
