@@ -97,7 +97,12 @@ class TaskController {
 
     async findUsers(requestParams: FastifyRequest['params'], fastify: FastifyReply) {
         const usersSchema = z.object({
-            id: z.string().transform(value => parseInt(value)).optional()
+            id: z.string()
+                .transform(value => parseInt(value))
+                .refine(value => !isNaN(value) && value > 0, {
+                    message: 'O id deve ser um número válido e maior que zero'
+                })
+                .optional()
         });
 
         try {
@@ -112,7 +117,13 @@ class TaskController {
             const users = await axios.get(`${API_BASE_URL}/${id}`);
             return users.data;
         } catch (error) {
-            return fastify.code(404).send({
+            if (error instanceof z.ZodError) {
+                return fastify.code(400).send({
+                    message: error.errors[0].message
+                });
+            }
+
+            return fastify.code(400).send({
                 message: 'Erro ao buscar usuários'
             });
         }
