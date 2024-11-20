@@ -7,13 +7,12 @@ interface UpdateTask {
 }
 
 class UpdateTaskService {
-
-    async updateTask(id: number, task: UpdateTask) {
+    async validateTask(id: number): Promise<boolean> {
         const taskExists = await TaskRepository.exists(id);
-        if (!taskExists) {
-            return taskExists;
-        }
+        return taskExists;
+    }
 
+    async updateTask(id: number, task: UpdateTask): Promise<UpdateTask> {
         return await TaskRepository.update(id, task);
     };
 }

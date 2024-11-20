@@ -7,7 +7,7 @@ interface CreateTask {
 }
 
 class CreateTaskService {
-    async createTask(task: CreateTask) {
+    async createTask(task: CreateTask): Promise<CreateTask> {
         return await taskRepository.create(task);
     };
 }
