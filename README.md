@@ -79,8 +79,8 @@ npm run dev
 <h3>GET /tasks</h3>
 
 **REQUEST** - All query parameters are optional, and the possible statuses are "pendente", "em andamento", or "concluido".
-```http
-GET http://localhost:3333/tasks?status=concluido&id=1&page=2&limit=2
+```bash
+curl -X GET "http://localhost:3333/tasks?status=concluido&id=1&page=2&limit=2"
 ```
 
 **RESPONSE** - This case: http://localhost:3333/tasks?page=2&limit=2
