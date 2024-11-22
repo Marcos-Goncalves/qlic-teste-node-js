@@ -148,8 +148,8 @@ curl -X GET "http://localhost:3333/tasks?status=concluido&id=1&page=2&limit=2"
 <h3>GET /tasks/users</h3>
 
 **REQUEST** - If an ID is provided in the route, it returns the user; if not, it returns the full list.
-```http
-GET http://localhost:3333/tasks/users/1
+```bash
+curl -X GET "http://localhost:3333/tasks/users/1"
 ```
 
 **RESPONSE** - This case: http://localhost:3333/tasks/users/1
