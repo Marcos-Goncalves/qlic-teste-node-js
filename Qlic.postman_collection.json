@@ -1,0 +1,265 @@
+{
+	"info": {
+		"_postman_id": "98beb8d2-8799-4e7b-a4a6-10751b6206cc",
+		"name": "Qlic",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29283190"
+	},
+	"item": [
+		{
+			"name": "/tasks",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtM3J0c3JtbzAwMDAzdnBna2F4djU3dzQiLCJuYW1lIjoiTWFyY29zIiwiZW1haWwiOiJtYXJjb3NAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkTVcycUJFTTJSaWhHUVBSN3U3a1VVdWVuRFM1WTVqUUc5ZkZ4UG14M3FzN1dtUVBXM1VTNEciLCJjcmVhdGVkQXQiOiIyMDI0LTExLTIxVDIxOjI5OjU0LjkxM1oiLCJ1cGRhdGVkQXQiOiIyMDI0LTExLTIxVDIxOjI5OjU0LjkxM1oiLCJpYXQiOjE3MzIzMTExNjUsImV4cCI6MTczMjM5NzU2NX0.hZZruifKd05oACNDeNwSFg2xkfFspE05jHZR7LO1Zkw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Atividade 07\",\n    \"description\": \"Realizar atividade 07 em determinada ordem\",\n    \"status\": \"em andamento\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3333/tasks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/user/register",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtM3J0c3JtbzAwMDAzdnBna2F4djU3dzQiLCJuYW1lIjoiTWFyY29zIiwiZW1haWwiOiJtYXJjb3NAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkTVcycUJFTTJSaWhHUVBSN3U3a1VVdWVuRFM1WTVqUUc5ZkZ4UG14M3FzN1dtUVBXM1VTNEciLCJjcmVhdGVkQXQiOiIyMDI0LTExLTIxVDIxOjI5OjU0LjkxM1oiLCJ1cGRhdGVkQXQiOiIyMDI0LTExLTIxVDIxOjI5OjU0LjkxM1oiLCJpYXQiOjE3MzIzMTExNjUsImV4cCI6MTczMjM5NzU2NX0.hZZruifKd05oACNDeNwSFg2xkfFspE05jHZR7LO1Zkw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"example\",\n    \"email\": \"example@gmail.com\",\n    \"password\": \"example\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3333/user/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/user/login",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtM3J0c3JtbzAwMDAzdnBna2F4djU3dzQiLCJuYW1lIjoiTWFyY29zIiwiZW1haWwiOiJtYXJjb3NAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkTVcycUJFTTJSaWhHUVBSN3U3a1VVdWVuRFM1WTVqUUc5ZkZ4UG14M3FzN1dtUVBXM1VTNEciLCJjcmVhdGVkQXQiOiIyMDI0LTExLTIxVDIxOjI5OjU0LjkxM1oiLCJ1cGRhdGVkQXQiOiIyMDI0LTExLTIxVDIxOjI5OjU0LjkxM1oiLCJpYXQiOjE3MzIyMjgyOTAsImV4cCI6MTczMjMxNDY5MH0.GsOUETBVPLFS41773KF-iHeO0BuQICUt9s_-uU_EGP8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"example@gmail.com\",\n    \"password\": \"example\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3333/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/tasks",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtM3J0c3JtbzAwMDAzdnBna2F4djU3dzQiLCJuYW1lIjoiTWFyY29zIiwiZW1haWwiOiJtYXJjb3NAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkTVcycUJFTTJSaWhHUVBSN3U3a1VVdWVuRFM1WTVqUUc5ZkZ4UG14M3FzN1dtUVBXM1VTNEciLCJjcmVhdGVkQXQiOiIyMDI0LTExLTIxVDIxOjI5OjU0LjkxM1oiLCJ1cGRhdGVkQXQiOiIyMDI0LTExLTIxVDIxOjI5OjU0LjkxM1oiLCJpYXQiOjE3MzIyMjgyOTAsImV4cCI6MTczMjMxNDY5MH0.GsOUETBVPLFS41773KF-iHeO0BuQICUt9s_-uU_EGP8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Atividade 01 (update)\",\n    \"description\": \"Realizar atividade 01 em determinada ordem (update)\",\n    \"status\": \"concluído\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3333/tasks/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"tasks",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/tasks",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtM3J0c3JtbzAwMDAzdnBna2F4djU3dzQiLCJuYW1lIjoiTWFyY29zIiwiZW1haWwiOiJtYXJjb3NAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkTVcycUJFTTJSaWhHUVBSN3U3a1VVdWVuRFM1WTVqUUc5ZkZ4UG14M3FzN1dtUVBXM1VTNEciLCJjcmVhdGVkQXQiOiIyMDI0LTExLTIxVDIxOjI5OjU0LjkxM1oiLCJ1cGRhdGVkQXQiOiIyMDI0LTExLTIxVDIxOjI5OjU0LjkxM1oiLCJpYXQiOjE3MzIyMjgyOTAsImV4cCI6MTczMjMxNDY5MH0.GsOUETBVPLFS41773KF-iHeO0BuQICUt9s_-uU_EGP8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3333/tasks?page=2&limit=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"tasks"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "concluido",
+							"disabled": true
+						},
+						{
+							"key": "id",
+							"value": "3",
+							"disabled": true
+						},
+						{
+							"key": "page",
+							"value": "2"
+						},
+						{
+							"key": "limit",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/tasks/users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtM3J0c3JtbzAwMDAzdnBna2F4djU3dzQiLCJuYW1lIjoiTWFyY29zIiwiZW1haWwiOiJtYXJjb3NAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkTVcycUJFTTJSaWhHUVBSN3U3a1VVdWVuRFM1WTVqUUc5ZkZ4UG14M3FzN1dtUVBXM1VTNEciLCJjcmVhdGVkQXQiOiIyMDI0LTExLTIxVDIxOjI5OjU0LjkxM1oiLCJ1cGRhdGVkQXQiOiIyMDI0LTExLTIxVDIxOjI5OjU0LjkxM1oiLCJpYXQiOjE3MzIyMjgyOTAsImV4cCI6MTczMjMxNDY5MH0.GsOUETBVPLFS41773KF-iHeO0BuQICUt9s_-uU_EGP8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3333/tasks/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"tasks",
+						"users"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
