@@ -5,6 +5,7 @@ import UpdateTaskService from "../services/UpdateTaskService";
 import { z } from "zod";
 import axios from "axios";
 import { AppError } from "../errors/AppError";
+import { StatusEnum } from "../services/FindAllTasksService";
 
 class TaskController {
 
@@ -17,7 +18,7 @@ class TaskController {
 
         try {
             const { title, description, status } = createTaskSchema.parse(requestBody);
-            const newTask = await CreateTaskService.createTask({ title, description, status });
+            await CreateTaskService.createTask({ title, description, status });
             return reply.code(201).send({
                 message: 'Tarefa criada com sucesso!'
             });
@@ -32,14 +33,21 @@ class TaskController {
 
     async findAll(requestQuery: FastifyRequest['query'], reply: FastifyReply) {
         const findAllTasksSchema = z.object({
-            status: z.string().optional()
+            status: z.enum([StatusEnum.CONCLUIDO, StatusEnum.EM_ANDAMENTO, StatusEnum.PENDENTE]).optional(),
+            id: z.string().transform(value => Number(value)).optional(),
+            page: z.string().transform(value => Number(value)).optional(),
+            limit: z.string().transform(value => Number(value)).optional()
         });
 
         try {
-            const { status } = findAllTasksSchema.parse(requestQuery);
-            const tasks = await FindAllTasksService.findAll(status);
+            const { status, id, page, limit } = findAllTasksSchema.parse(requestQuery);
+            const tasks = await FindAllTasksService.findAll({ status, id, page, limit });
             return reply.code(200).send(tasks);
         } catch (error) {
+            if (error instanceof z.ZodError) {
+                throw new AppError(error.errors[0].message, 400);
+            }
+
             throw error;
         }
     }
@@ -70,6 +78,7 @@ class TaskController {
     }
 
     async findUsers(requestParams: FastifyRequest['params'], fastify: FastifyReply) {
+
         const usersSchema = z.object({
             id: z.string()
                 .transform(value => parseInt(value))
@@ -91,19 +100,17 @@ class TaskController {
             const users = await axios.get(`${API_BASE_URL}/${id}`);
             return users.data;
         } catch (error) {
-            //Erro for do zod
+
             if (error instanceof z.ZodError) {
                 throw new AppError(error.errors[0].message, 400);
             }
 
-            //Erro for do axios
             if (axios.isAxiosError(error)) {
                 const status = error.response?.status || 500;
                 const message = error.response?.data?.message || 'Erro ao buscar dados da API';
                 throw new AppError(message, status);
             }
 
-            //Outros erros
             throw error;
         }
     }

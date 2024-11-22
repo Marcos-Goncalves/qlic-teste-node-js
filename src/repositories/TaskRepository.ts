@@ -1,4 +1,6 @@
 import prisma from "../config/database";
+import { TaskOptions } from "../services/FindAllTasksService";
+import { Task as TaskFindAll } from "../services/FindAllTasksService";
 
 interface Task {
     title: string;
@@ -17,16 +19,17 @@ class TaskRepository {
         });
     }
 
-    async findAll() {
-        return await prisma.task.findMany();
-    }
+    async findAll(options?: TaskOptions) {
+        const page = options?.page ?? 1;
+        const take = options?.limit ?? 5;
 
-    async findByStatus(status: string) {
         return await prisma.task.findMany({
             where: {
-                status
-            }
-        });
+                ...(options?.status && { status: options.status }),
+                ...(options?.id && { id: Number(options.id) })
+            },skip: (page - 1) * take,
+            take
+        }) as TaskFindAll[];
     }
 
     async update(id: number, task: Task) {
